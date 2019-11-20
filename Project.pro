@@ -42,21 +42,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-CONFIG(debug, debug|release)
-{
 
-    win32: LIBS += -L$$PWD/Dependency/lib/ -lopencv_world411d
 
-    INCLUDEPATH += $$PWD/Dependency/opencv2
-    DEPENDPATH += $$PWD/Dependency/opencv2
-
-    win32:!win32-g++: PRE_TARGETDEPS += $$PWD/Dependency/lib/opencv_world411d.lib
-    else:win32-g++: PRE_TARGETDEPS += $$PWD/Dependency/lib/libopencv_world411d.a
-
-    message("debug")
-}
-CONFIG(release, debug|release)
-{
     win32: LIBS += -L$$PWD/Dependency/lib/ -lopencv_world411
 
     INCLUDEPATH += $$PWD/Dependency/opencv2
@@ -64,5 +51,3 @@ CONFIG(release, debug|release)
 
     win32:!win32-g++: PRE_TARGETDEPS += $$PWD/Dependency/lib/opencv_world411.lib
     else:win32-g++: PRE_TARGETDEPS += $$PWD/Dependency/lib/libopencv_world411.a
-    message("release")
-}

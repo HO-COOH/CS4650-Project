@@ -58,7 +58,8 @@ void Widget::on_applyBtn_clicked()
         if(!img.empty())
         {
             std::cout<<"Image loaded to opencv!\n";
-            cv::imshow("img",OilEffect2(img,1,10));
+            auto processed=OilEffect2(img, 1,20);
+            cv::imshow("img",processed);
             cv::waitKey(0);
             cv::destroyAllWindows();
         }
