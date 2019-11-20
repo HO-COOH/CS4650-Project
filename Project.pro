@@ -47,8 +47,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
     win32: LIBS += -L$$PWD/Dependency/lib/ -lopencv_world411
 
-    INCLUDEPATH += $$PWD/Dependency/opencv2
-    DEPENDPATH += $$PWD/Dependency/opencv2
+    INCLUDEPATH += $$PWD/Dependency/
+    DEPENDPATH += $$PWD/Dependency/
 
     win32:!win32-g++: PRE_TARGETDEPS += $$PWD/Dependency/lib/opencv_world411.lib
     else:win32-g++: PRE_TARGETDEPS += $$PWD/Dependency/lib/libopencv_world411.a
