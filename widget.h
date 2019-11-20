@@ -18,11 +18,11 @@ public:
 private slots:
     void on_loadBtn_clicked();
 
-    void on_radiusSlider_sliderMoved(int position);
-
-    void on_intensitySlider_sliderMoved(int position);
-
     void on_applyBtn_clicked();
+
+    void on_radiusSlider_valueChanged(int value);
+
+    void on_intensitySlider_valueChanged(int value);
 
 private:
     Ui::Widget *ui;

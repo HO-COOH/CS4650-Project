@@ -15,6 +15,10 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->imageLabel->setText("");
+    ui->radiusSlider->setRange(1,5);
+    ui->radiusSlider->setValue(1);
+
+    ui->intensitySlider->setValue(20);
 }
 
 Widget::~Widget()
@@ -37,14 +41,14 @@ void Widget::on_loadBtn_clicked()
         QMessageBox::warning(this, "Error", "This file is not an image!");
 }
 
-void Widget::on_radiusSlider_sliderMoved(int position)
+void Widget::on_radiusSlider_valueChanged(int value)
 {
-    ui->radiusText->setText(QString::number(position));
+    ui->radiusText->setText(QString::number(value));
 }
 
-void Widget::on_intensitySlider_sliderMoved(int position)
+void Widget::on_intensitySlider_valueChanged(int value)
 {
-    ui->intensityText->setText(QString::number(position));
+    ui->intensityText->setText(QString::number(value));
 }
 
 void Widget::on_applyBtn_clicked()
@@ -58,7 +62,7 @@ void Widget::on_applyBtn_clicked()
         if(!img.empty())
         {
             std::cout<<"Image loaded to opencv!\n";
-            auto processed=OilEffect2(img, 1,20);
+            auto processed=OilEffect2(img, ui->radiusSlider->value() ,ui->intensitySlider->value());
             cv::imshow("img",processed);
             cv::waitKey(0);
             cv::destroyAllWindows();
@@ -69,3 +73,5 @@ void Widget::on_applyBtn_clicked()
         }
     }
 }
+
+

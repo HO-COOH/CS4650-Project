@@ -31,6 +31,7 @@ SOURCES += \
 
 HEADERS += \
         ImageProcess.h \
+        Timer.h \
         widget.h
 
 FORMS += \
