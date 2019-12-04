@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include "frame.h"
 
 namespace Ui {
 class Widget;
@@ -24,8 +25,16 @@ private slots:
 
     void on_intensitySlider_valueChanged(int value);
 
+
+    void on_monochromeCheckbox_stateChanged(int arg1);
+
+    void on_chromaticCheckbox_stateChanged(int arg1);
+
+    void on_nextBtn_clicked();
+
 private:
     Ui::Widget *ui;
+    frame* frame_window;
 };
 
 #endif // WIDGET_H

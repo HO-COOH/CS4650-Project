@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include "ImageProcess.h"
 
+
 static bool imageLoaded=false;
 static QString fileName;
 
@@ -19,6 +20,9 @@ Widget::Widget(QWidget *parent) :
     ui->radiusSlider->setValue(1);
 
     ui->intensitySlider->setValue(20);
+
+    ui->chromaticCheckbox->setCheckState(Qt::CheckState::Checked);
+    ui->monochromeCheckbox->setCheckState(Qt::CheckState::Unchecked);
 }
 
 Widget::~Widget()
@@ -97,3 +101,20 @@ void Widget::on_applyBtn_clicked()
 }
 
 
+void Widget::on_monochromeCheckbox_stateChanged(int arg1)
+{
+    ui->chromaticCheckbox->setCheckState(arg1==Qt::CheckState::Checked? Qt::CheckState::Unchecked : Qt::CheckState::Checked);
+}
+
+void Widget::on_chromaticCheckbox_stateChanged(int arg1)
+{
+    ui->monochromeCheckbox->setCheckState(arg1==Qt::CheckState::Checked? Qt::CheckState::Unchecked : Qt::CheckState::Checked);
+}
+
+void Widget::on_nextBtn_clicked()
+{
+    //hide();
+    frame_window=new frame(this);
+    frame_window->setModal(true);
+    frame_window->show();
+}
