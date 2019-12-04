@@ -59,10 +59,32 @@ void Widget::on_applyBtn_clicked()
     {
         cv::namedWindow("img");
         auto img=cv::imread(fileName.toStdString());
+        auto processed = img.clone();
+
+        //check if image is black and white
+        cv::Mat test[3];
+        bool isGrayScale = false;
+        cv::split(img, test);
+        for(int i = 0; i < img.rows; i++){
+            for(int j = 0; j < img.cols; j++){
+                if(test[0].at<uint8_t>(i,j) == test[1].at<uint8_t>(i,j) && test[0].at<uint8_t>(i,j) == test[2].at<uint8_t>(i,j)){
+                    isGrayScale = true;
+                }else{
+                    isGrayScale = false;
+                }
+            }
+        }
+
+
         if(!img.empty())
         {
             std::cout<<"Image loaded to opencv!\n";
-            auto processed=OilEffect2(img, ui->radiusSlider->value() ,ui->intensitySlider->value());
+            if(isGrayScale){
+                std::cout << "It's black and white";
+                processed = PencilEffect(test[0],11,5);
+            }else{
+                processed=OilEffect2(img, ui->radiusSlider->value() ,ui->intensitySlider->value());
+            }
             cv::imshow("img",processed);
             cv::waitKey(0);
             cv::destroyAllWindows();

@@ -76,3 +76,65 @@ cv::Mat OilEffect2(const cv::Mat& original, int radius, int intensity)
     }
     return processed;
 }
+
+
+Mat PencilEffect(const Mat& original, int K_SIZE, int S_SIZE) {
+    original.convertTo(original, CV_8UC1);
+
+    int row = original.rows;
+    int col = original.cols;
+
+    Mat img = Mat::zeros(row,col,CV_8UC1);
+    Mat img_invert = Mat::zeros(row,col,CV_8UC1);
+    Mat img_pencil = Mat::zeros(row,col,CV_8UC1);
+
+    //create a clone of the original image
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j < col; j++){
+            img.at<uint8_t>(i,j) = original.at<uint8_t>(i,j);
+        }
+    }
+
+    //create an invert image
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j < col; j++){
+            img_invert.at<uint8_t>(i,j) = 255 - img.at<uint8_t>(i,j);
+        }
+    }
+
+
+
+    img_invert.convertTo(img_invert, CV_32FC1);
+    img_pencil.convertTo(img_pencil, CV_32FC1);
+    img.convertTo(img, CV_32FC1);
+
+
+    //blur the inverted image with Gaussian filter
+    GaussianBlur(img_invert, img_invert, Size(K_SIZE,K_SIZE), S_SIZE);
+
+
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j < col; j++){
+            //blending with white give white
+            if(img_invert.at<float>(i,j) == 255){
+                img_pencil.at<float>(i,j) = 255;
+            //blending with black doesn't change the color
+            }else if(img_invert.at<float>(i,j) == 0){
+                img_pencil.at<float>(i,j) = img.at<float>(i,j);
+            //divide gray scale image by the top inverted image
+            }else{
+                img_pencil.at<float>(i,j) = img.at<float>(i,j)*255 / (255-img_invert.at<float>(i,j));
+            }
+        }
+    }
+
+
+    img_pencil.convertTo(img_pencil, CV_8UC1);
+    img_invert.convertTo(img_invert, CV_8UC1);
+    img.convertTo(img, CV_8UC1);
+
+    //Apply median filter to clean up noise in drawing
+    medianBlur(img_pencil, img_pencil, K_SIZE/2);
+
+    return img_pencil;
+}
