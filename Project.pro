@@ -26,15 +26,18 @@ CONFIG += c++17
 
 SOURCES += \
         ImageProcess.cpp \
+        frame.cpp \
         main.cpp \
         widget.cpp
 
 HEADERS += \
         ImageProcess.h \
         Timer.h \
+        frame.h \
         widget.h
 
 FORMS += \
+        frame.ui \
         widget.ui \
         widget.ui
 
@@ -44,7 +47,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 
-
+CONFIG(release, debug|release)
+{
     win32: LIBS += -L$$PWD/Dependency/lib/ -lopencv_world411
 
     INCLUDEPATH += $$PWD/Dependency/
@@ -52,3 +56,18 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
     win32:!win32-g++: PRE_TARGETDEPS += $$PWD/Dependency/lib/opencv_world411.lib
     else:win32-g++: PRE_TARGETDEPS += $$PWD/Dependency/lib/libopencv_world411.a
+}
+CONFIG(debug, debug|release)
+{
+    win32: LIBS += -L$$PWD/Dependency/lib/ -lopencv_world411d
+
+    INCLUDEPATH += $$PWD/Dependency/
+    DEPENDPATH += $$PWD/Dependency/
+
+    win32:!win32-g++: PRE_TARGETDEPS += $$PWD/Dependency/lib/opencv_world411d.lib
+    else:win32-g++: PRE_TARGETDEPS += $$PWD/Dependency/lib/libopencv_world411d.a
+}
+
+
+RESOURCES += \
+    frame_img.qrc

@@ -49,6 +49,29 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="title">
+         <string>Color</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QCheckBox" name="monochromeCheckbox">
+           <property name="text">
+            <string>Monochrome</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chromaticCheckbox">
+           <property name="text">
+            <string>Chromatic</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
        <widget class="QGroupBox" name="groupBox">
         <property name="title">
          <string>Radius</string>
@@ -83,7 +106,7 @@
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Intensity</string>
+            <string>Intensity:</string>
            </property>
           </widget>
          </item>
@@ -115,9 +138,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="testBtn">
+       <widget class="QPushButton" name="nextBtn">
         <property name="text">
-         <string>PushButton</string>
+         <string>Next</string>
         </property>
        </widget>
       </item>
