@@ -88,6 +88,7 @@ void Widget::on_applyBtn_clicked()
                 processed = PencilEffect(test[0],11,5);
             }else{
                 processed=OilEffect2(img, ui->radiusSlider->value() ,ui->intensitySlider->value());
+                processed=CartoonEffect(processed,11,5,100);
             }
             cv::imshow("img",processed);
             cv::waitKey(0);

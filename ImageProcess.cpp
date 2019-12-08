@@ -138,3 +138,56 @@ Mat PencilEffect(const Mat& original, int K_SIZE, int S_SIZE) {
 
     return img_pencil;
 }
+
+Mat CartoonEffect(const Mat& img, int K_SIZE, int S_SIZE, int T_SIZE) {
+       int row = img.rows;
+       int col = img.cols;
+
+       Mat img_painting = img.clone();
+       Mat img_edge = Mat::zeros(row,col,CV_8UC1);
+       Mat img_blur = Mat::zeros(row, col, CV_8UC1);
+       Mat img_clone = Mat::zeros(row, col, CV_8UC1);
+
+
+
+       cvtColor(img_painting, img_clone, COLOR_BGR2GRAY); //convert image to gray scale
+
+       //enhance the edge of the image using unsharp masking
+       GaussianBlur(img_clone, img_blur, Size(K_SIZE,K_SIZE), S_SIZE);
+       Mat img_sub_mod = img_clone - img_blur; //input - blur image
+       Mat img_sharp_mod = img_clone + img_sub_mod; //input + (input - blur image)
+
+       //Find thresholds for Canny edge detection
+       double h_thresh = T_SIZE, l_thresh = 0;
+   //    int count = 0;
+   //
+   //    for(int i = 0; i < row; i++){
+   //        for(int j = 0; j < col; j++){
+   //            if(img_painting.at<uint8_t>(i,j) != 0){
+   //                h_thresh += img_painting.at<uint8_t>(i,j);
+   //                count++;
+   //            }
+   //        }
+   //    }
+
+   //    h_thresh /= count;
+       l_thresh = h_thresh/3;
+       Canny(img_sharp_mod, img_edge, h_thresh, l_thresh);
+       //Laplacian(img_sharp_mod, img_edge, 1);
+   //    Mat img_blur;
+   //    medianBlur(img, img_blur, 7);
+   //    adaptiveThreshold(img_blur, img_edge, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 9, 2);
+
+
+       for(int i = 0; i < row; i++){
+           for(int j = 0; j < col; j++){
+               if(img_edge.at<uint8_t>(i,j) == 255){
+                   Vec3b color = {0,0,0};
+                   img_painting.at<Vec3b>(i,j) = color;
+               }
+           }
+       }
+
+       return img_painting;
+
+}

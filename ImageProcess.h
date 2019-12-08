@@ -4,3 +4,4 @@
 cv::Mat OilEffect(const cv::Mat& original, int radius, int intensity);
 cv::Mat OilEffect2(const cv::Mat& original, int radius, int intensity);
 cv::Mat PencilEffect(const cv::Mat& img, int K_SIZE, int S_SIZE);
+cv::Mat CartoonEffect(const cv::Mat& img, int K_SIZE, int S_SIZE, int T_SIZE);
