@@ -134,7 +134,7 @@ Mat PencilEffect(const Mat& original, int K_SIZE, int S_SIZE) {
     img.convertTo(img, CV_8UC1);
 
     //Apply median filter to clean up noise in drawing
-    medianBlur(img_pencil, img_pencil, (K_SIZE / 2)%2==0? K_SIZE/2+1 :K_SIZE/2 );
+    //medianBlur(img_pencil, img_pencil, (K_SIZE / 2)%2==0? K_SIZE/2+1 :K_SIZE/2 );
 
     return img_pencil;
 }
