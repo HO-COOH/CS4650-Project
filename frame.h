@@ -14,7 +14,7 @@ class frame : public QDialog
     Q_OBJECT
 
 public:
-    explicit frame(QWidget *parent, cv::Mat& processed_img);
+    explicit frame(QWidget *parent, cv::Mat& processed_img, bool isGrayScale);
     ~frame();
 
 private slots:
@@ -41,7 +41,7 @@ struct frame_size
 
 
 frame_size get_frame_size(const cv::Mat& frame_img);
-void add_frame(cv::Mat& img, cv::Mat& frame, const frame_size frameSize);
+void add_frame(cv::Mat& img, cv::Mat& frame, const frame_size frameSize, bool isGrayScale);
 
 /*Debug*/
 void print_size(const frame_size frameSize);

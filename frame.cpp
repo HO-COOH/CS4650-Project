@@ -7,7 +7,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-frame::frame(QWidget *parent, cv::Mat& processed) :
+frame::frame(QWidget *parent, cv::Mat& processed, bool isGrayScale) :
     QDialog(parent),
     ui(new Ui::frame)
 {
@@ -25,7 +25,7 @@ frame::frame(QWidget *parent, cv::Mat& processed) :
     /*Debug*/
     print_size(frame_size);
 
-    add_frame(processed, frame_img, frame_size);
+    add_frame(processed, frame_img, frame_size, isGrayScale);
     ui->label->setPixmap(QPixmap::fromImage(QImage((unsigned char*)frame_img.data, frame_img.cols, frame_img.rows, frame_img.step, QImage::Format_RGB888).rgbSwapped()));
 }
 
@@ -87,14 +87,25 @@ void frame::on_cancelBtn_clicked()
     this->close();
 }
 
-void add_frame(cv::Mat& img,cv::Mat& frame, const frame_size frameSize)
+void add_frame(cv::Mat& img,cv::Mat& frame, const frame_size frameSize, bool isGrayScale)
 {
     using namespace cv;
     cv::resize(img, img, cv::Size(frameSize.right-frameSize.left, frameSize.down-frameSize.up));
-    for(size_t row=frameSize.up, origin_row=0; row<frameSize.down; ++row, ++origin_row)
+    if(isGrayScale)
     {
-        for(size_t col=frameSize.left, origin_col=0; col<frameSize.right; ++col, ++origin_col)
-            frame.at<Vec3b>(row, col)=img.at<Vec3b>(origin_row, origin_col);
+        for(size_t row=frameSize.up, origin_row=0; row<frameSize.down; ++row, ++origin_row)
+        {
+            for(size_t col=frameSize.left, origin_col=0; col<frameSize.right; ++col, ++origin_col)
+                frame.at<Vec3b>(row, col)={ img.at<uchar>(origin_row, origin_col), img.at<uchar>(origin_row, origin_col), img.at<uchar>(origin_row, origin_col)};
+        }
+    }
+    else
+    {
+        for(size_t row=frameSize.up, origin_row=0; row<frameSize.down; ++row, ++origin_row)
+        {
+            for(size_t col=frameSize.left, origin_col=0; col<frameSize.right; ++col, ++origin_col)
+                frame.at<Vec3b>(row, col)=img.at<Vec3b>(origin_row, origin_col);
+        }
     }
     namedWindow("test");
     imshow("test", frame);

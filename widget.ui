@@ -133,7 +133,7 @@
          <item>
           <widget class="QSlider" name="gaussianSlider">
            <property name="minimum">
-            <number>3</number>
+            <number>5</number>
            </property>
            <property name="singleStep">
             <number>2</number>

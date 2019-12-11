@@ -121,7 +121,7 @@ void Widget::on_chromaticCheckbox_stateChanged(int arg1)
 void Widget::on_nextBtn_clicked()
 {
     //hide();
-    frame_window=new frame(this, processed);
+    frame_window=new frame(this, processed, isGrayScale);
     frame_window->setModal(true);
     frame_window->show();
 }
