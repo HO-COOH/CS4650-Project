@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>830</width>
-    <height>575</height>
+    <width>827</width>
+    <height>637</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -128,10 +128,16 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="gaussianText"/>
          </item>
          <item>
-          <widget class="QSlider" name="horizontalSlider">
+          <widget class="QSlider" name="gaussianSlider">
+           <property name="minimum">
+            <number>3</number>
+           </property>
+           <property name="singleStep">
+            <number>2</number>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -145,10 +151,32 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_2"/>
+          <widget class="QLineEdit" name="sigmaText"/>
          </item>
          <item>
-          <widget class="QSlider" name="horizontalSlider_2">
+          <widget class="QSlider" name="sigmaSlider">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="title">
+         <string>Edge Detection</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QLineEdit" name="edgeText"/>
+         </item>
+         <item>
+          <widget class="QSlider" name="edgeSlider">
+           <property name="maximum">
+            <number>255</number>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>

@@ -32,9 +32,19 @@ private slots:
 
     void on_nextBtn_clicked();
 
+    void on_edgeSlider_valueChanged(int value);
+
+    void on_gaussianSlider_valueChanged(int value);
+
+    void on_sigmaSlider_valueChanged(int value);
+
 private:
     Ui::Widget *ui;
+    cv::Mat original;
+    cv::Mat processed;
+    bool isGrayScale;
     frame* frame_window;
+    void Draw();
 };
 
 #endif // WIDGET_H
